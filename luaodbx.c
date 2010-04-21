@@ -48,7 +48,6 @@ typedef struct {
 typedef struct {
     short      closed;
     int        conn;               /* reference to connection */
-    int        row;
     odbx_result_t *res;
 } lua_odbx_res;
 
@@ -419,7 +418,6 @@ static int Lodbx_result (lua_State *L) {
 
 	/* fill in structure */
 	my_res->closed = 0;
-	my_res->row = 0;
 	my_res->conn = LUA_NOREF;
 	my_res->res = res;
 
@@ -431,12 +429,32 @@ static int Lodbx_result (lua_State *L) {
 }
 
 static int Lodbx_result_finish (lua_State *L) {
-    lua_pushnumber(L, odbx_result_finish(Mget_res (L)->res));
+
+    lua_odbx_res *my_res = Mget_res (L);
+    luaL_argcheck (L, my_res != NULL, 1, "connection expected");
+    if (my_res->closed) {
+        lua_pushboolean (L, 0);
+        return 1;
+    }
+
+    my_res->closed = 1;
+    luaL_unref (L, LUA_REGISTRYINDEX, my_res->conn);
+    lua_pushnumber(L, odbx_result_finish(my_res->res));
     return 1;
 }
 
 static int Lodbx_result_free (lua_State *L) {
-    odbx_result_free(Mget_res (L)->res);
+    lua_odbx_res *my_res = Mget_res (L);
+    luaL_argcheck (L, my_res != NULL, 1, "connection expected");
+    if (my_res->closed) {
+        lua_pushboolean (L, 0);
+        return 1;
+    }
+
+    my_res->closed = 1;
+    luaL_unref (L, LUA_REGISTRYINDEX, my_res->conn);
+    odbx_result_free(my_res->res);
+
     return 0;
 }
 

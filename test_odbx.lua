@@ -1,7 +1,7 @@
 require "odbx"
 require "print_r"
 local db, err = odbx.init("pgsql")
-local db, err = odbx.init("mysql", "127.0.0.1")
+local db, err = odbx.init("mysql")
 print_r(db)
 print_r(db:error(0))
 print_r(db:error_type(-1))
@@ -15,6 +15,7 @@ print_r(err)
 local s = "'fdsafdsa'";
 local a,b = db:escape(s)
 print('========================')
+while true do
 local a,b = db:query("SELECT * FROM odbxtest")
 print_r(a)
 print_r(b)
@@ -41,9 +42,8 @@ if res then
 		print"-----------------------------------"
 		e = res:row_fetch()
 	end
-	print"==========================================="
-	res:finish()
+	print_r(res:finish())
 end
-print"**********************************************"
+end
 db:unbind()
 db:finish()
