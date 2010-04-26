@@ -69,19 +69,20 @@ static int luaM_const (lua_State *L, const char *defined) {
 
 	luaM_regconst(L, "ODBX_ERR_SUCCESS", ODBX_ERR_SUCCESS);
 	luaM_regconst(L, "-ODBX_ERR_BACKEND", -ODBX_ERR_BACKEND);
+	luaM_regconst(L, "-ODBX_ERR_NOCAP", -ODBX_ERR_NOCAP);
 	luaM_regconst(L, "-ODBX_ERR_PARAM", -ODBX_ERR_PARAM);
 	luaM_regconst(L, "-ODBX_ERR_NOMEM", -ODBX_ERR_NOMEM);
 	luaM_regconst(L, "-ODBX_ERR_SIZE", -ODBX_ERR_SIZE);
-	luaM_regconst(L, "-ODBX_ERR_NOTSUP ", -ODBX_ERR_NOTSUP);
-	luaM_regconst(L, "-ODBX_ERR_OPTION ", -ODBX_ERR_OPTION);
 	luaM_regconst(L, "-ODBX_ERR_NOTEXIST", -ODBX_ERR_NOTEXIST);
 	luaM_regconst(L, "-ODBX_ERR_NOOP", -ODBX_ERR_NOOP);
-	luaM_regconst(L, "-ODBX_ERR_RESULT", -ODBX_ERR_RESULT);
+	luaM_regconst(L, "-ODBX_ERR_OPTION ", -ODBX_ERR_OPTION);
 	luaM_regconst(L, "-ODBX_ERR_OPTRO", -ODBX_ERR_OPTRO);
 	luaM_regconst(L, "-ODBX_ERR_OPTWR", -ODBX_ERR_OPTWR);
+	luaM_regconst(L, "-ODBX_ERR_RESULT", -ODBX_ERR_RESULT);
+	luaM_regconst(L, "-ODBX_ERR_NOTSUP ", -ODBX_ERR_NOTSUP);
 	luaM_regconst(L, "-ODBX_ERR_HANDLE", -ODBX_ERR_HANDLE);
 
-	luaM_regconst(L, "-ODBX_CAP_BASIC", -ODBX_CAP_BASIC);
+	luaM_regconst(L, "ODBX_CAP_BASIC", ODBX_CAP_BASIC);
 	luaM_regconst(L, "ODBX_CAP_LO", ODBX_CAP_LO);
 	
 	// for odbx_get_option();
@@ -96,8 +97,6 @@ static int luaM_const (lua_State *L, const char *defined) {
 	luaM_regconst(L, "ODBX_TLS_NEVER", ODBX_TLS_NEVER);
 	luaM_regconst(L, "ODBX_TLS_ALWAYS", ODBX_TLS_ALWAYS);
 	luaM_regconst(L, "ODBX_TLS_TRY", ODBX_TLS_TRY);
-	luaM_regconst(L, "ODBX_ENABLE", ODBX_ENABLE);
-	luaM_regconst(L, "ODBX_DISABLE", ODBX_DISABLE);
 
 	//Exact numeric values: 
 	luaM_regconst(L, "ODBX_TYPE_BOOLEAN", ODBX_TYPE_BOOLEAN);
@@ -121,9 +120,9 @@ static int luaM_const (lua_State *L, const char *defined) {
 	luaM_regconst(L, "ODBX_TYPE_BLOB", ODBX_TYPE_BLOB);
 	//Date and time values: 
 	luaM_regconst(L, "ODBX_TYPE_TIME", ODBX_TYPE_TIME);
-	//luaM_regconst(L, "ODBX_TYPE_TIME_TZ", ODBX_TYPE_TIME_TZ);
+	luaM_regconst(L, "ODBX_TYPE_TIMETZ", ODBX_TYPE_TIMETZ);
 	luaM_regconst(L, "ODBX_TYPE_TIMESTAMP", ODBX_TYPE_TIMESTAMP);
-	//luaM_regconst(L, "ODBX_TYPE_TIMESTAMP_TZ", ODBX_TYPE_TIMESTAMP_TZ);
+	luaM_regconst(L, "ODBX_TYPE_TIMESTAMPTZ", ODBX_TYPE_TIMESTAMPTZ);
 	luaM_regconst(L, "ODBX_TYPE_DATE", ODBX_TYPE_DATE);
 	luaM_regconst(L, "ODBX_TYPE_INTERVAL", ODBX_TYPE_INTERVAL);
 	//Arrays and sets: 
@@ -135,6 +134,9 @@ static int luaM_const (lua_State *L, const char *defined) {
 	luaM_regconst(L, "ODBX_TYPE_UNKNOWN", ODBX_TYPE_UNKNOWN);
 
 	luaM_regconst(L, "ODBX_BIND_SIMPLE", ODBX_BIND_SIMPLE);
+
+	luaM_regconst(L, "ODBX_ENABLE", ODBX_ENABLE);
+	luaM_regconst(L, "ODBX_DISABLE", ODBX_DISABLE);
 
 	lua_pushstring(L, defined);	
 	lua_gettable(L, -2); 

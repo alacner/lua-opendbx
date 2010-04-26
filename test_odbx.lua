@@ -5,7 +5,10 @@ local db, err = odbx.init("mysql")
 print_r(db)
 print_r(db:error(0))
 print_r(db:error_type(-1))
-
+print"----"
+print_r(db:error(-12))
+print"----"
+os.exit();
 
 
 local err = db:bind('odbx', 'root')
